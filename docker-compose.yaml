@@ -112,6 +112,7 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     networks:
       - mynetwork
+    restart: on-failure
 
   notification-service:
     build: ./notification-service

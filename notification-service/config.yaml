@@ -7,7 +7,7 @@ notificationserver:
     port: "8080"
 websocketserver:
   http:
-    host: "websocket-service"
+    host: "localhost"
     port: "2020"
 kafkaserver:
   group: "notification-group"
