@@ -1,0 +1,618 @@
+basePath: /api/v1
+definitions:
+  models.CategorySpending:
+    properties:
+      category:
+        type: string
+      total_spent:
+        type: integer
+    type: object
+  models.CreateBudgetForCategoryReq:
+    properties:
+      amount:
+        type: number
+      category:
+        type: string
+      currency:
+        type: string
+      date:
+        type: string
+      spent:
+        type: number
+    type: object
+  models.CreateBudgetForCategoryResp:
+    properties:
+      budge_id:
+        type: string
+      message:
+        type: string
+    type: object
+  models.GetBudgetsResp:
+    properties:
+      amount:
+        type: number
+      budget_id:
+        type: string
+      category:
+        type: string
+      currency:
+        type: string
+      spent:
+        type: integer
+    type: object
+  models.GetTransactionsRes:
+    properties:
+      amount:
+        type: number
+      category:
+        type: string
+      currency:
+        type: string
+      date:
+        type: string
+      transaction_id:
+        type: string
+      type:
+        type: string
+    type: object
+  models.LoginUserReq:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  models.LoginUserRes:
+    properties:
+      expiresIn:
+        type: integer
+      message:
+        type: string
+      token:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  models.ProfileUserRes:
+    properties:
+      age:
+        type: integer
+      email:
+        type: string
+      userId:
+        type: integer
+      username:
+        type: string
+    type: object
+  models.PutBudgetReq:
+    properties:
+      amount:
+        type: integer
+    type: object
+  models.PutBudgetResp:
+    properties:
+      message:
+        type: string
+    type: object
+  models.RegisterIncomeReq:
+    properties:
+      amount:
+        type: number
+      category:
+        type: string
+      currency:
+        type: string
+      date:
+        type: string
+    type: object
+  models.RegisterIncomeResp:
+    properties:
+      message:
+        type: string
+      transaction_id:
+        type: string
+    type: object
+  models.RegisterUserReq:
+    properties:
+      age:
+        type: integer
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  models.RegisterUserRes:
+    properties:
+      message:
+        type: string
+    type: object
+  models.ReportingRes:
+    properties:
+      net_savings:
+        type: integer
+      total_expenses:
+        type: integer
+      total_income:
+        type: integer
+    type: object
+  models.VerifyUserReq:
+    properties:
+      code:
+        type: string
+      email:
+        type: string
+    type: object
+  models.VerifyUserRes:
+    properties:
+      expiresIn:
+        type: integer
+      message:
+        type: string
+      token:
+        type: string
+      user_id:
+        type: integer
+    type: object
+host: localhost:4040
+info:
+  contact: {}
+  description: This is a Person Finance Management server for Swagger integration.
+  title: Person Finance Management API
+  version: "2.0"
+paths:
+  /budgets/{budgetId}:
+    put:
+      consumes:
+      - application/json
+      description: Add a new expense budget to the system
+      parameters:
+      - description: Budget ID
+        in: path
+        name: budgetId
+        required: true
+        type: integer
+      - description: Put Budget data
+        in: body
+        name: expense
+        required: true
+        schema:
+          $ref: '#/definitions/models.PutBudgetReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.PutBudgetResp'
+        "400":
+          description: Bad request error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Put Budgets
+      tags:
+      - budget
+  /budgets/{userId}:
+    get:
+      consumes:
+      - application/json
+      description: Add a new expense budget to the system
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.GetBudgetsResp'
+            type: array
+        "400":
+          description: Bad request error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get Budgets
+      tags:
+      - budget
+    post:
+      consumes:
+      - application/json
+      description: Add a new expense budget to the system
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: integer
+      - description: Create Budget data
+        in: body
+        name: expense
+        required: true
+        schema:
+          $ref: '#/definitions/models.CreateBudgetForCategoryReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CreateBudgetForCategoryResp'
+        "400":
+          description: Bad request error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Register a new Budget budget
+      tags:
+      - budget
+  /reports/income-expense/{userId}:
+    get:
+      consumes:
+      - application/json
+      description: Add a new expense reporting to the system
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ReportingRes'
+        "400":
+          description: Bad request error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: get reporting
+      tags:
+      - reporting
+  /reports/spending-by-category/{userId}:
+    get:
+      consumes:
+      - application/json
+      description: Add a new expense reporting to the system
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.CategorySpending'
+            type: array
+        "400":
+          description: Bad request error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: get reporting By Category
+      tags:
+      - reporting
+  /transactions/{userId}:
+    get:
+      consumes:
+      - application/json
+      description: Get the list of all transactions
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: List of transactions
+          schema:
+            items:
+              $ref: '#/definitions/models.GetTransactionsRes'
+            type: array
+        "400":
+          description: Bad request error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Retrieve transactions
+      tags:
+      - transactions
+  /transactions/expense/{userId}:
+    post:
+      consumes:
+      - application/json
+      description: Add a new expense transaction to the system
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: integer
+      - description: Register Expense data
+        in: body
+        name: expense
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterIncomeReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RegisterIncomeReq'
+        "400":
+          description: Bad request error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Register a new expense transaction
+      tags:
+      - transactions
+  /transactions/income/{userId}:
+    post:
+      consumes:
+      - application/json
+      description: Add a new income transaction to the system
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: integer
+      - description: Register Income data
+        in: body
+        name: income
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterIncomeReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RegisterIncomeResp'
+        "400":
+          description: Bad request error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Register a new income transaction
+      tags:
+      - transactions
+  /users:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user account
+      parameters:
+      - description: User Registration Data
+        in: body
+        name: register
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterUserReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'message: Registration successful'
+          schema:
+            $ref: '#/definitions/models.RegisterUserRes'
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Register a new user
+      tags:
+      - users
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user with email and password
+      parameters:
+      - description: User Login Data
+        in: body
+        name: login
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginUserReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'message: Login User'
+          schema:
+            $ref: '#/definitions/models.LoginUserRes'
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Login user
+      tags:
+      - users
+  /users/profile/{userId}:
+    get:
+      description: Retrieve the current user's profile data by userId
+      parameters:
+      - description: User ID
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User profile data
+          schema:
+            $ref: '#/definitions/models.ProfileUserRes'
+        "400":
+          description: User ID is required
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get user profile
+      tags:
+      - users
+  /users/verify:
+    post:
+      consumes:
+      - application/json
+      description: Verifies a user via a verification code
+      parameters:
+      - description: Verification
+        in: body
+        name: verify
+        required: true
+        schema:
+          $ref: '#/definitions/models.VerifyUserReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 'message: User verified'
+          schema:
+            $ref: '#/definitions/models.VerifyUserRes'
+        "400":
+          description: Bad request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Verification User not found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal server error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Verify a user's email address
+      tags:
+      - users
+schemes:
+- https
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authoriz
+    type: apiKey
+swagger: "2.0"

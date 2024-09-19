@@ -1,0 +1,19 @@
+app:
+  name: report-server
+  env: dev
+budgetserver:
+  http:
+    host: "budget-service"  
+    port: "5050"
+incomeandexpensesserver:
+  http:
+    host: "income-service"  
+    port: "6060"
+userserver:
+  http:
+    host: "user-service"  
+    port: "7070"
+reportingserver:
+  http:
+    host: "report-service"  
+    port: "9090"

@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+option go_package = "./reporting";
+
+service ReportingService {
+  rpc GetIncomeExpenseReport (GetIncomeExpenseReportRequest) returns (IncomeExpenseReportResponse);
+  rpc GetSpendingByCategoryReport (GetSpendingByCategoryReportRequest) returns (SpendingByCategoryReportResponse);
+}
+
+message GetIncomeExpenseReportRequest {
+  string userId = 1;
+}
+
+message IncomeExpenseReportResponse {
+  double totalIncome = 1;
+  double totalExpenses = 2;
+  double netSavings = 3;
+}
+
+message GetSpendingByCategoryReportRequest {
+  string userId = 1;
+}
+
+message CategorySpending {
+  string category = 1;
+  double totalSpent = 2;
+}
+
+message SpendingByCategoryReportResponse {
+  repeated CategorySpending spending = 1;
+}

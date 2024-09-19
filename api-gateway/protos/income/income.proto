@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+option go_package = "./income";
+
+service IncomeExpensesService {
+  rpc LogIncome (IncomeRequest) returns (IncomeResponse);
+  rpc LogExpense (ExpenseRequest) returns (ExpenseResponse);
+  rpc GetTransactions (GetTransactionsRequest) returns (GetTransactionsResponse);
+}
+
+message IncomeRequest {
+  double amount = 1;
+  int32 userId = 2;
+  string currency = 3;
+  string category = 4;
+  string date = 5;
+}
+
+message IncomeResponse {
+  string message = 1;
+  string transactionId = 2;
+}
+
+message ExpenseRequest {
+  double amount = 1;
+  int32 userId = 2;
+  string currency = 3;
+  string category = 4;
+  string date = 5;
+}
+
+message ExpenseResponse {
+  string message = 1;
+  string transactionId = 2;
+}
+
+message GetTransactionsRequest {
+  string userId = 1;
+}
+
+message Transaction {
+  string transactionId = 1;
+  int32 userId = 2;
+  string type = 3; // "income" or "expense"
+  double amount = 4;
+  string currency = 5;
+  string category = 6;
+  string date = 7;
+}
+
+message GetTransactionsResponse {
+  repeated Transaction transactions = 1;
+}

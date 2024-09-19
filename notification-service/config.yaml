@@ -1,0 +1,17 @@
+app:
+  name: notification-service
+  env: dev
+notificationserver:
+  http:
+    host: "notification-service"
+    port: "8080"
+websocketserver:
+  http:
+    host: "websocket-service"
+    port: "2020"
+kafkaserver:
+  group: "notification-group"
+  topic: "notifications"
+  http:
+    host: "kafka"  
+    port: "9092"
