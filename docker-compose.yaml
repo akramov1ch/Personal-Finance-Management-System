@@ -90,6 +90,12 @@ services:
       - "2181:2181"
     networks:
       - mynetwork
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
     
   kafka:
     image: wurstmeister/kafka:latest
